@@ -29,20 +29,20 @@ local default_plugins = {
     end,
   },
 
-  {
-    "NvChad/nvim-colorizer.lua",
-    init = function()
-      require("core.utils").lazy_load "nvim-colorizer.lua"
-    end,
-    config = function(_, opts)
-      require("colorizer").setup(opts)
-
-      -- execute colorizer as soon as possible
-      vim.defer_fn(function()
-        require("colorizer").attach_to_buffer(0)
-      end, 0)
-    end,
-  },
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   init = function()
+  --     require("core.utils").lazy_load "nvim-colorizer.lua"
+  --   end,
+  --   config = function(_, opts)
+  --     require("colorizer").setup(opts)
+  --
+  --     -- execute colorizer as soon as possible
+  --     vim.defer_fn(function()
+  --       require("colorizer").attach_to_buffer(0)
+  --     end, 0)
+  --   end,
+  -- },
 
   {
     "nvim-tree/nvim-web-devicons",
@@ -142,7 +142,6 @@ local default_plugins = {
     end,
     config = function()
       require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
     end,
   },
 
@@ -263,17 +262,55 @@ local default_plugins = {
       require("which-key").setup(opts)
     end,
   },
-  -- install with yarn or npm
-{
-  "iamcco/markdown-preview.nvim",
-  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  build = "cd app && yarn install",
-  init = function()
-    vim.g.mkdp_filetypes = { "markdown" }
-  end,
-  ft = { "markdown" },
-},
+
+  -- markdown stuff
+  
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && yarn install",
+    run = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    keys = {
+      { "<leader>md", "<cmd>MarkdownPreviewToggle<cr>", desc="MarkdownPreviewToggle" }
+    },
+    ft = { "markdown" },
+  },
+
+  {
+    "ellisonleao/glow.nvim",
+    config = true,
+    cmd = "Glow",
+    keys = {
+      { "<leader>gl", "<cmd>Glow<cr>", desc = "Glow" },
+    },
+
+    -- Lua
+    {
+      "folke/zen-mode.nvim",
+      opts = {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    }
+  },
+
+  -- {
+  --   "toppair/peek.nvim",
+  --   event = { "VeryLazy" },
+  --   build = "deno task --quiet build:fast",
+  --   config = function()
+  --       require("peek").setup()
+  --       vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+  --       vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+  --   end,
+  -- },
 }
+
+
 
 local config = require("core.utils").load_config()
 

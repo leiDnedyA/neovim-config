@@ -64,4 +64,26 @@ require("lspconfig").lua_ls.setup {
   },
 }
 
+require("lspconfig").marksman.setup{}
+
+require("lspconfig").svelte.setup{}
+
+require("lspconfig").tsserver.setup{}
+
+require("lspconfig").html.setup{}
+
+require("lspconfig").svelte.setup{}
+
+require("lspconfig").pyright.setup{}
+
+require("lspconfig").prismals.setup{}
+
+require'lspconfig'.coq_lsp.setup{}
+
+require'lspconfig'.clangd.setup{
+  cmd = {"clangd-12"}
+}
+
+require'lspconfig'.ocamlls.setup{ "ocaml-language-server", "--stdio" }
+
 return M
